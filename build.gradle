@@ -8,15 +8,29 @@ buildscript {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
   }
+
+  ext.appName = 'FatecFighters'
+
+  group 'com.fatecfighters'
+  version '1.0'
+
+
   dependencies {
-
-
+    'org.postgresql:postgresql:42.6.0'
   }
+
+
+
 }
 
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
+  apply plugin: 'java-library'
+  apply plugin: 'application'
+
+
+
 
   // This allows you to "Build and run using IntelliJ IDEA", an option in IDEA's Settings.
   idea {

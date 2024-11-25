@@ -1,5 +1,27 @@
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name = appName + '-core'
+plugins {
+  id 'java'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+}
+
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
+// Definição de variáveis para as dependências
+def box2dlightsVersion = "1.5" // Substitua pela versão correta
+def aiVersion = "1.8.2"        // Substitua pela versão correta
+def gdxVersion = "1.11.0"      // Substitua pela versão correta
+def graalHelperVersion = "0.9.2" // Substitua pela versão correta, caso necessário
 
 dependencies {
   api "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
@@ -7,7 +29,17 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  if(enableGraalNative == 'true') {
+  // Dependência do PostgreSQL
+  implementation "org.postgresql:postgresql:42.6.0"
+
+  if (project.hasProperty('enableGraalNative') && enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
+}
+
+// Configuração do nome do projeto Eclipse
+eclipse.project.name = "${appName}-core"
+
+tasks.withType(JavaCompile) {
+  options.incremental = true
 }
