@@ -1,33 +1,59 @@
 # InterProject2
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+**InterProject2** é um jogo 2D desenvolvido com o framework LibGDX. Este projeto utiliza a estrutura **gdx-liftoff** para facilitar o desenvolvimento de jogos com suporte multiplataforma. O jogo possui uma interface gráfica simples e pode ser executado em diferentes plataformas, como desktop, usando o **LWJGL3**.
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws a simple GUI on the screen.
+## Plataformas
 
-## Platforms
+O projeto está dividido em dois módulos principais:
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+- **core**: Módulo principal que contém a lógica do jogo, compartilhada entre todas as plataformas.
+- **lwjgl3**: Plataforma principal de desktop utilizando **LWJGL3**, anteriormente chamada de 'desktop'. Este módulo contém os detalhes específicos de implementação para desktop.
 
-## Gradle
+## Como Executar
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+Siga estas etapas para executar o projeto localmente:
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/darkslipx/FatecFighters.git
+    ```
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+2. Acesse o diretório do projeto:
+    ```bash
+    cd FatecFighters
+    ```
+
+3. Para compilar e executar o jogo no ambiente **desktop (lwjgl3)**, execute o seguinte comando:
+    ```bash
+    ./gradlew lwjgl3:run
+    ```
+
+4. Para compilar o projeto em um arquivo JAR executável:
+    ```bash
+    ./gradlew lwjgl3:jar
+    ```
+
+## Instalação do Gradle
+
+Se o **Gradle** não estiver instalado na sua máquina, siga estas etapas para instalá-lo:
+
+### Para Windows:
+
+1. Baixe o **Gradle** em [https://gradle.org/install/](https://gradle.org/install/).
+2. Extraia o conteúdo do arquivo ZIP em um diretório de sua escolha.
+3. Adicione o caminho do Gradle à variável de ambiente `PATH`:
+    - Clique com o botão direito em **Este PC** ou **Meu Computador** e selecione **Propriedades**.
+    - Selecione **Configurações avançadas do sistema**.
+    - Clique em **Variáveis de ambiente**.
+    - Na seção "Variáveis de sistema", localize a variável `Path` e clique em **Editar**.
+    - Adicione o caminho para a pasta `bin` do Gradle (por exemplo, `C:\gradle\bin`).
+4. Verifique a instalação no terminal com:
+    ```bash
+    gradle -v
+    ```
+
+### Para macOS/Linux:
+
+- Use o **Homebrew** para instalar o Gradle (macOS):
+  ```bash
+  brew install gradle
