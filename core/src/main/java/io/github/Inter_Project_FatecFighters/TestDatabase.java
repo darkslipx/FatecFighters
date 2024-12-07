@@ -16,7 +16,7 @@ public class TestDatabase {
 
             // Testar conexão
             Connection connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexão bem-sucedida com o banco de dados!");
+            System.out.println("Conexão bem-sucedida com o banco de dados");
 
             // Fechar conexão
             connection.close();

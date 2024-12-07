@@ -35,7 +35,7 @@ public class TelaFimJogo implements Screen {
         fonte.setColor(Color.WHITE); // Definir cor do texto para melhorar contraste
 
         camera = new OrthographicCamera();
-        viewport = new FitViewport(1920, 1080, camera); // Configuração padrão
+        viewport = new FitViewport(1920, 1080, camera); // Configuuração padrão
         viewport.apply();
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();

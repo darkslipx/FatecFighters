@@ -213,7 +213,7 @@ public class TelaJogo extends com.badlogic.gdx.ScreenAdapter {
             System.err.println("Erro ao salvar pontuação para " + nomeUsuario2);
         }
 
-        // Redireciona para TelaFimJogo com nome do vencedor ou jogador principal
+        // Redireciona para TelaFimJogo com nome do vencedor ou jogador principaal
         jogo.setScreen(new TelaFimJogo(jogo, razao, nomeUsuario1));
     }
 

@@ -84,7 +84,7 @@ public class TelaMenu implements Screen {
 
     private void tratarEntrada() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ALT_LEFT)) {
-            jogo.setScreen(new TelaJogo(jogo, nomeUsuario, "Jogador 2")); // Ajustado para TelaJogo
+            jogo.setScreen(new TelaJogo(jogo, nomeUsuario, "Jogador 2")); // Ajustado para TelaJogo...
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {

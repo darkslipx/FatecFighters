@@ -38,7 +38,7 @@ public class UsuarioDAO {
         }
     }
 
-    // Método para alterar a senha de um usuário
+    // Méetodo para alterar a senha de um usuário
     public boolean alterarSenha(String nomeUsuario, String novaSenha) {
         String sql = "UPDATE usuarios SET senha = ? WHERE nome_usuario = ?";
         try (Connection conn = DatabaseConnection.getConnection();

@@ -99,7 +99,7 @@ public class TelaLogin extends ScreenAdapter {
                     } else {
                         mensagem = "Credenciais inválidas! Tente novamente.";
                     }
-                } else if (character != '\t') { // Ignora a tecla Tab
+                } else if (character != '\t') { // Ignora a tecla Tab para nao dar problema
                     if (digitandoSenha) {
                         senha += character;
                     } else {

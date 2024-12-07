@@ -90,7 +90,7 @@ public class TelaPontuacoes implements Screen {
     private void tratarEntrada() {
         // Volta para o menu ao pressionar Shift
         if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
-            System.out.println("Tecla Shift pressionada. Voltando ao menu...");
+            System.out.println("Tecla Shift pressionada. Voltando ao menu");
             jogo.setScreen(new TelaMenu(jogo, nomeUsuario)); // Volta para o menu passando o nome do usuário
         }
     }

@@ -11,7 +11,7 @@ public class PontuacaoDAO {
 
     // Método para salvar pontuação no banco
     public boolean salvarPontuacao(String nomeUsuario, int pontuacao) {
-        // Certifique-se de que o usuário existe antes de salvar a pontuação
+        // Certifique-se de que o usuário existe antes de saalvar a pontuação
         if (!verificarUsuarioExiste(nomeUsuario)) {
             criarUsuario(nomeUsuario);
         }
