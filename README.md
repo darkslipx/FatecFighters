@@ -9,6 +9,28 @@ O projeto está dividido em dois módulos principais:
 - **core**: Módulo principal que contém a lógica do jogo, compartilhada entre todas as plataformas.
 - **lwjgl3**: Plataforma principal de desktop utilizando **LWJGL3**, anteriormente chamada de 'desktop'. Este módulo contém os detalhes específicos de implementação para desktop.
 
+## Estrutura de Diretórios
+
+O projeto está organizado da seguinte maneira:
+
+- `core/`: Lógica do jogo compartilhada entre todas as plataformas.
+- `lwjgl3/`: Implementação específica para a plataforma desktop com LWJGL3.
+- `assets/`: Contém recursos como imagens, sons, fontes, etc.
+- `build.gradle`: Arquivo de configuração do Gradle.
+
+## Requisitos de Sistema
+
+- **Java JDK 8 ou superior**
+- **Gradle 6.x ou superior**
+- **LibGDX** (incluído no projeto via Gradle)
+
+## Agradecimentos
+
+- **LibGDX**: Framework utilizado para o desenvolvimento do jogo.
+- **gdx-liftoff**: Template utilizado para gerar a estrutura do projeto.
+- **Font Awesome**: Usado para os ícones no jogo.
+
+
 ## Como Executar
 
 Siga estas etapas para executar o projeto localmente:
@@ -47,13 +69,14 @@ Se o **Gradle** não estiver instalado na sua máquina, siga estas etapas para i
     - Clique em **Variáveis de ambiente**.
     - Na seção "Variáveis de sistema", localize a variável `Path` e clique em **Editar**.
     - Adicione o caminho para a pasta `bin` do Gradle (por exemplo, `C:\gradle\bin`).
-4. Verifique a instalação no terminal com:
+4. Verifique a instalação com:
     ```bash
     gradle -v
     ```
 
-### Para macOS/Linux:
+## FAQ
 
-- Use o **Homebrew** para instalar o Gradle (macOS):
-  ```bash
-  brew install gradle
+**Q: Como eu faço para rodar o jogo em uma plataforma diferente do desktop?**
+
+**A:** O suporte para plataformas móveis e web ainda não foi implementado. No momento, o jogo funciona apenas no desktop usando o LWJGL3.
+
