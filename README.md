@@ -1,82 +1,120 @@
-# InterProject2
+# 🥊 Fatec Fighters
 
-**InterProject2** é um jogo 2D desenvolvido com o framework LibGDX. Este projeto utiliza a estrutura **gdx-liftoff** para facilitar o desenvolvimento de jogos com suporte multiplataforma. O jogo possui uma interface gráfica simples e pode ser executado em diferentes plataformas, como desktop, usando o **LWJGL3**.
+![Java](https://img.shields.io/badge/Java-ED8B00?logo=openjdk&logoColor=white)
+![libGDX](https://img.shields.io/badge/libGDX-1.13-E74A45)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=white)
 
-## Plataformas
+Jogo de luta 2D local para dois jogadores, feito em **Java com libGDX**. Tem login de usuário, placar persistido em **PostgreSQL** e ranking de pontuações.
 
-O projeto está dividido em dois módulos principais:
+Projeto acadêmico (Projeto Interdisciplinar — Fatec).
 
-- **core**: Módulo principal que contém a lógica do jogo, compartilhada entre todas as plataformas.
-- **lwjgl3**: Plataforma principal de desktop utilizando **LWJGL3**, anteriormente chamada de 'desktop'. Este módulo contém os detalhes específicos de implementação para desktop.
+## Sumário
 
-## Estrutura de Diretórios
+- [Funcionalidades](#-funcionalidades)
+- [Controles](#-controles)
+- [Stack](#️-stack)
+- [Arquitetura](#-arquitetura)
+- [Como executar](#️-como-executar)
+- [Estrutura do projeto](#-estrutura-do-projeto)
 
-O projeto está organizado da seguinte maneira:
+## ✨ Funcionalidades
 
-- `core/`: Lógica do jogo compartilhada entre todas as plataformas.
-- `lwjgl3/`: Implementação específica para a plataforma desktop com LWJGL3.
-- `assets/`: Contém recursos como imagens, sons, fontes, etc.
-- `build.gradle`: Arquivo de configuração do Gradle.
+- **Combate 1v1 local** — dois jogadores no mesmo teclado, com movimento, pulo (com gravidade) e três ataques de dano diferente (50, 100 e 200)
+- **Detecção de colisão** entre a área do golpe e a hitbox do adversário
+- **Barra de vida** (1000 HP) e **temporizador de 3 minutos** por partida
+- **Pontuação** — +10 pontos a cada golpe acertado
+- **Login e cadastro de usuário** com dados salvos no banco
+- **Ranking** — pontuações gravadas ao fim da partida e exibidas em ordem decrescente
+- Fluxo de telas: Login → Menu → Partida → Fim de jogo → Ranking
 
-## Requisitos de Sistema
+## 🎮 Controles
 
-- **Java JDK 8 ou superior**
-- **Gradle 6.x ou superior**
-- **LibGDX** (incluído no projeto via Gradle)
+| Ação | Jogador 1 | Jogador 2 |
+|---|---|---|
+| Mover | `A` / `D` | `←` / `→` |
+| Pular | `W` | `↑` |
+| Ataque leve (50) | `Q` | `Num 1` |
+| Ataque médio (100) | `E` | `Num 2` |
+| Ataque forte (200) | `R` | `Num 3` |
 
-## Agradecimentos
+## 🛠️ Stack
 
-- **LibGDX**: Framework utilizado para o desenvolvimento do jogo.
-- **gdx-liftoff**: Template utilizado para gerar a estrutura do projeto.
-- **Font Awesome**: Usado para os ícones no jogo.
+| Camada | Tecnologias |
+|---|---|
+| Jogo | Java, libGDX 1.13 (Scene2D UI, BitmapFont, Texture) |
+| Desktop | LWJGL3 |
+| Persistência | PostgreSQL via JDBC, padrão DAO |
+| Build | Gradle (wrapper incluso), estrutura gerada com gdx-liftoff |
 
+## 🧱 Arquitetura
 
-## Como Executar
+```
+Main (Game)
+ ├── TelaLogin        → autenticação/cadastro   ─┐
+ ├── TelaMenu         → iniciar partida / ranking │
+ ├── TelaJogo         → loop do jogo: input, física, colisão, HUD
+ ├── TelaFimJogo      → resultado e gravação da pontuação
+ └── TelaPontuacoes   → ranking                  │
+                                                  ▼
+                    UsuarioDAO / PontuacaoDAO → DatabaseConnection (JDBC) → PostgreSQL
+```
 
-Siga estas etapas para executar o projeto localmente:
+Cada tela é um `Screen` do libGDX; o acesso a dados fica isolado em DAOs com `PreparedStatement`.
 
-1. Clone o repositório:
-    ```bash
-    git clone https://github.com/darkslipx/FatecFighters.git
-    ```
+## ▶️ Como executar
 
-2. Acesse o diretório do projeto:
-    ```bash
-    cd FatecFighters
-    ```
+**Pré-requisitos:** JDK 8+ e PostgreSQL. O Gradle é baixado automaticamente pelo wrapper.
 
-3. Para compilar e executar o jogo no ambiente **desktop (lwjgl3)**, execute o seguinte comando:
-    ```bash
-    ./gradlew lwjgl3:run
-    ```
+**1. Crie o banco**
 
-4. Para compilar o projeto em um arquivo JAR executável:
-    ```bash
-    ./gradlew lwjgl3:jar
-    ```
+```sql
+CREATE DATABASE jogo;
 
-## Instalação do Gradle
+\c jogo
 
-Se o **Gradle** não estiver instalado na sua máquina, siga estas etapas para instalá-lo:
+CREATE TABLE usuarios (
+    id            SERIAL PRIMARY KEY,
+    nome_usuario  VARCHAR(50) UNIQUE NOT NULL,
+    senha         VARCHAR(100) NOT NULL
+);
 
-### Para Windows:
+CREATE TABLE pontuacoes (
+    id          SERIAL PRIMARY KEY,
+    id_usuario  INT REFERENCES usuarios(id),
+    pontuacao   INT NOT NULL,
+    data        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-1. Baixe o **Gradle** em [https://gradle.org/install/](https://gradle.org/install/).
-2. Extraia o conteúdo do arquivo ZIP em um diretório de sua escolha.
-3. Adicione o caminho do Gradle à variável de ambiente `PATH`:
-    - Clique com o botão direito em **Este PC** ou **Meu Computador** e selecione **Propriedades**.
-    - Selecione **Configurações avançadas do sistema**.
-    - Clique em **Variáveis de ambiente**.
-    - Na seção "Variáveis de sistema", localize a variável `Path` e clique em **Editar**.
-    - Adicione o caminho para a pasta `bin` do Gradle (por exemplo, `C:\gradle\bin`).
-4. Verifique a instalação com:
-    ```bash
-    gradle -v
-    ```
+**2. Configure a conexão** em `core/src/main/java/io/github/Inter_Project_FatecFighters/DatabaseConnection.java` (URL, usuário e senha).
 
-## FAQ
+**3. Rode o jogo**
 
-**Q: Como eu faço para rodar o jogo em uma plataforma diferente do desktop?**
+```bash
+git clone https://github.com/darkslipx/FatecFighters.git
+cd FatecFighters
+./gradlew lwjgl3:run          # Windows: gradlew.bat lwjgl3:run
+```
 
-**A:** O suporte para plataformas móveis e web ainda não foi implementado. No momento, o jogo funciona apenas no desktop usando o LWJGL3.
+Para gerar um `.jar` executável: `./gradlew lwjgl3:jar` (saída em `lwjgl3/build/libs`).
 
+## 📁 Estrutura do projeto
+
+```
+FatecFighters/
+├── assets/          # sprites, fundo, fontes e skin da UI
+├── core/            # lógica do jogo (telas, DAOs, conexão)
+│   └── src/main/java/io/github/Inter_Project_FatecFighters/
+├── lwjgl3/          # launcher desktop
+├── build.gradle
+└── settings.gradle
+```
+
+## 👤 Autor
+
+**Abner Evandro Duarte** — [@darkslipx](https://github.com/darkslipx)
+
+## 📄 Licença
+
+Projeto desenvolvido para fins acadêmicos e de estudo.
